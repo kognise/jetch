@@ -151,3 +151,22 @@
         }
     }
 }
+
+@media (max-width: 900px) {
+    .container {
+        .buttons {
+            flex-direction: row;
+            justify-content: center;
+            gap: 5px;
+
+            button {
+                width: auto;
+                max-width: 180px;
+            }
+        }
+
+        .openSource {
+            bottom: 5px;
+        }
+    }
+}
