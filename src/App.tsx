@@ -186,6 +186,8 @@ export default function App() {
         }
 
         function onKeyDown(event: KeyboardEvent) {
+            if (event.target instanceof HTMLInputElement) return
+
             let shortcut: 'undo' | 'redo' | null = null
             if (event.ctrlKey || event.metaKey) {
                 if (event.code === 'KeyZ') {
