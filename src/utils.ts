@@ -310,12 +310,17 @@ export async function exportAsPng(history: Action[]): Promise<Blob> {
     outCtx.fillRect(0, 0, outputCanvas.width, outputCanvas.height)
 
     if (found) {
-        outCtx.save()
-        outCtx.translate(padding, padding)
-        outCtx.scale(scale, scale)
-        outCtx.translate(-(cMinX + minX - padding), -(cMinY + minY - padding))
-        renderActions(outCtx, history, imageCache)
-        outCtx.restore()
+        const contentCanvas = document.createElement('canvas')
+        contentCanvas.width = finalWidth
+        contentCanvas.height = finalHeight
+        const contentCtx = contentCanvas.getContext('2d')!
+        
+        contentCtx.scale(scale, scale)
+        contentCtx.translate(-(cMinX + minX - padding), -(cMinY + minY - padding))
+        
+        renderActions(contentCtx, history, imageCache)
+        
+        outCtx.drawImage(contentCanvas, padding, padding)
     }
     
     return new Promise<Blob>((resolve, reject) => {
